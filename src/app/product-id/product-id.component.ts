@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-id',
@@ -7,7 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductIdComponent implements OnInit {
 
-  constructor() { }
+  searchKeyword = '';
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.params.subscribe(data=>{
+      this.searchKeyword = data.id;
+    })
+   }
+   updateSearch(){
+    const searchVal = this.searchKeyword;
+    this.router.navigate(['products/view/', searchVal]);
+   }
 
   ngOnInit(): void {
   }
